@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "874489562461",
+    "project_id": "beliora-bac59",
+    "storage_bucket": "beliora-bac59.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874489562461:android:1ea75b78e8b0f32e94d4b4",
+        "android_client_info": {
+          "package_name": "com.example.beliora_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "874489562461-40sp5r5poenqid6g98jtke5r6p9q81vv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.beliora_1",
+            "certificate_hash": "673050e9d44f240ce0157c36fa9cdd0c1a5fe2a1"
+          }
+        },
+        {
+          "client_id": "874489562461-tmv10e2uoqur4lc4upviqjrtpoe7ncjo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdy1Ns-02u6RdAHv30KdrIq1wiP19PK5Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "874489562461-tmv10e2uoqur4lc4upviqjrtpoe7ncjo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "874489562461-hsnkpkknh038r86o59pd5q36h9kusvt8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.beliora1"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
