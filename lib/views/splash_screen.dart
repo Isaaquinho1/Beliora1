@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; 
 import 'dart:async';
 import 'dart:math' as math;
-import 'login_screen.dart'; // Importamos la futura pantalla de login
+import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -36,7 +36,6 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       duration: const Duration(seconds: 10),
     )..repeat();
 
-    // Ciclo de frases
     Timer.periodic(const Duration(milliseconds: 4500), (timer) {
       if (mounted) {
         setState(() {
@@ -45,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       }
     });
 
-    // [PASO FINAL SEMANA 2] Salto automático al Login tras 6 segundos
+    // Salto automático al Login tras 6 segundos
     Timer(const Duration(seconds: 6), () {
       if (mounted) {
         Navigator.of(context).pushReplacement(
@@ -54,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
             transitionsBuilder: (context, animation, secondaryAnimation, child) {
               return FadeTransition(opacity: animation, child: child);
             },
-            transitionDuration: const Duration(milliseconds: 1500),
+            transitionDuration: const Duration(milliseconds: 1000),
           ),
         );
       }
@@ -70,10 +69,15 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
+    // Variables de respuesta para medidas dinámicas
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: const Color(0xFF0A0A0A),
       body: Stack(
         children: [
+          // 1. Fondo Animado
           AnimatedBuilder(
             animation: _liquidController,
             builder: (context, child) {
@@ -84,6 +88,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
             },
           ),
           
+          // 2. Viñetas para profundidad
           Container(
             decoration: BoxDecoration(
               gradient: RadialGradient(
@@ -97,41 +102,42 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
             ),
           ),
 
+          // 3. Contenido Principal Responsivo
           FadeTransition(
             opacity: _fadeController,
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Logo SVG - Altura reducida para eliminar el espacio vacío
+                  // Logo SVG: Ocupa el 30% del alto de la pantalla
                   SizedBox(
-                    width: 420,
-                    height: 280, // Reducido de 450 a 280 para "pegar" el texto
+                    height: screenHeight * 0.30,
+                    width: screenWidth * 0.75,
                     child: Center(
                       child: SvgPicture.asset(
                         'assets/images/logo_beliora.svg',
-                        width: 420,
-                        height: 420, // El SVG mantiene su escala masiva
                         fit: BoxFit.contain,
                         colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                       ),
                     ),
                   ),
                   
-                  // Quitamos cualquier SizedBox intermedio
-                  const Text(
+                  // Wordmark con tamaño dinámico
+                  Text(
                     'BELIORA',
                     style: TextStyle(
                       fontFamily: 'Syne', 
-                      fontSize: 36,
+                      fontSize: screenHeight * 0.038, // Escala con la pantalla
                       fontWeight: FontWeight.w700,
-                      letterSpacing: 14,
+                      letterSpacing: 12,
                       color: Colors.white,
                     ),
                   ),
                   
-                  const SizedBox(height: 50), // Espacio equilibrado hacia las frases
+                  // Espacio dinámico entre marca y frases (8% de la pantalla)
+                  SizedBox(height: screenHeight * 0.08),
                   
+                  // Bloque de Frases
                   AnimatedSwitcher(
                     duration: const Duration(milliseconds: 800),
                     child: Padding(
@@ -140,9 +146,9 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                         _quotes[_quoteIndex],
                         key: ValueKey(_quoteIndex),
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontStyle: FontStyle.italic,
-                          fontSize: 16,
+                          fontSize: screenHeight * 0.018,
                           color: Colors.white70,
                           letterSpacing: 1.2,
                         ),
@@ -150,7 +156,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                     ),
                   ),
                   
-                  const SizedBox(height: 25),
+                  const SizedBox(height: 30),
                   const LoadingDots(),
                 ],
               ),
@@ -163,6 +169,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 }
 
 // --- CLASES DE DIBUJO ---
+
 class LiquidMercuryPainter extends CustomPainter {
   final double animationValue;
   LiquidMercuryPainter(this.animationValue);
